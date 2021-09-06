@@ -17,5 +17,10 @@ variable "cluster" {
 #}
 
 variable "db_details" {
-   type = map(string)
+  description = "DB details"
+  type        = map(string)
+}
+variable "bucket_name" {
+  description = "Bucket name"
+  type         = string
 }
