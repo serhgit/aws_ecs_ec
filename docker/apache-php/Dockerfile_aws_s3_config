@@ -1,0 +1,7 @@
+#With config downloaded from S3 bucket which is configured by terraform
+FROM php:7.4-apache
+COPY html/ /var/www/html/
+COPY entrypoint/ /bin/
+RUN apt-get update && apt-get -y install awscli && docker-php-ext-install mysqli && chmod 755 /bin/entrypoint.sh
+ENTRYPOINT ["/bin/entrypoint.sh"]
+CMD ["apache2-foreground"]

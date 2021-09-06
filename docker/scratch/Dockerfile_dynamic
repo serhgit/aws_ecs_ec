@@ -1,0 +1,5 @@
+FROM scratch
+COPY hello_dynamic /
+COPY /usr_min /usr
+COPY symlinks /
+CMD ["/hello_dynamic"] 
