@@ -49,6 +49,7 @@ module "secret_manager" {
     db_name     = "${var.db_name}"
     db_write_host = "${module.rds.db_write_host}"
  }
+bucket_name = "${module.s3.s3_bucket_name}"
 }
 module "task_definitions" {
   source = "../task_definitions"
@@ -62,6 +63,12 @@ resource "aws_ecs_cluster" "cluster" {
   name = var.cluster
 }
 
+module "s3" {
+  source = "../s3"
+
+environment = var.environment
+cluster     = var.cluster
+}
 resource "aws_ecs_service" "apache_php_rds" {
   name            = "${var.environment}_${var.cluster}_apache_php_rds"
   cluster         = aws_ecs_cluster.cluster.id
