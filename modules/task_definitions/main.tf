@@ -8,7 +8,7 @@ resource "aws_ecs_task_definition" "apache_php_rds" {
   container_definitions = jsonencode([
     {
       name      = "apache_php_rds"
-      image     = "288946686376.dkr.ecr.us-east-1.amazonaws.com/apache_php_rds:4.0"
+      image     = "288946686376.dkr.ecr.us-east-1.amazonaws.com/apache_php_rds:5.0"
       cpu       = 500
       memory    = 256
       essential = true
@@ -21,6 +21,10 @@ resource "aws_ecs_task_definition" "apache_php_rds" {
       secrets = [ 
         {
           name             = "db_details"
+          valueFrom        = "${var.secret_manager_arn}"
+        },
+        {
+          name             = "bucket_name"
           valueFrom        = "${var.secret_manager_arn}"
         }
       ]
